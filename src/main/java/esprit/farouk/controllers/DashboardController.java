@@ -111,7 +111,7 @@ public class DashboardController {
 
             sidebarMenu.getChildren().addAll(usersBtn, rolesBtn, farmsBtn, statsBtn);
             showUsersView();
-        } else {
+        } else if ("farmer".equalsIgnoreCase(roleName)) {
             Button profileBtn = new Button("Profile");
             profileBtn.getStyleClass().add("sidebar-button");
             profileBtn.setMaxWidth(Double.MAX_VALUE);
@@ -123,6 +123,15 @@ public class DashboardController {
             myFarmsBtn.setOnAction(e -> showMyFarmsView());
 
             sidebarMenu.getChildren().addAll(profileBtn, myFarmsBtn);
+            showProfileView();
+        } else {
+            // Customer or other roles
+            Button profileBtn = new Button("Profile");
+            profileBtn.getStyleClass().add("sidebar-button");
+            profileBtn.setMaxWidth(Double.MAX_VALUE);
+            profileBtn.setOnAction(e -> showProfileView());
+
+            sidebarMenu.getChildren().add(profileBtn);
             showProfileView();
         }
     }
