@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" styleClass="login-background"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="esprit.farouk.controllers.LoginController">
+
+    <VBox alignment="CENTER" spacing="20" styleClass="login-card">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+
+        <!-- Title -->
+        <Label text="AgriCloud" styleClass="app-title"/>
+        <Label text="Smart Farm Management" styleClass="app-subtitle"/>
+
+        <!-- Email -->
+        <VBox spacing="6">
+            <Label text="Email" styleClass="field-label"/>
+            <TextField fx:id="emailField" promptText="Enter your email" styleClass="text-input"/>
+        </VBox>
+
+        <!-- Password -->
+        <VBox spacing="6">
+            <Label text="Password" styleClass="field-label"/>
+            <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="text-input"/>
+        </VBox>
+
+        <!-- Error message -->
+        <Label fx:id="errorLabel" styleClass="error-label" managed="false" visible="false"/>
+
+        <!-- Login button -->
+        <Button text="Login" onAction="#handleLogin" styleClass="login-button" maxWidth="Infinity"/>
+
+        <!-- Forgot password link -->
+        <HBox alignment="CENTER_RIGHT">
+            <Hyperlink text="Forgot Password?" onAction="#goToForgotPassword" styleClass="link-text"/>
+        </HBox>
+
+        <!-- Register link -->
+        <HBox alignment="CENTER" spacing="4">
+            <Label text="Don't have an account?" styleClass="app-subtitle"/>
+            <Hyperlink text="Register" onAction="#goToRegister" styleClass="link-text"/>
+        </HBox>
+    </VBox>
+</HBox>

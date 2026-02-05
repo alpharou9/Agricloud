@@ -1,0 +1,356 @@
+/* ===== Login Background ===== */
+.login-background {
+    -fx-background-color: #e8f5e9;
+}
+
+/* ===== Login Card ===== */
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 4);
+    -fx-min-width: 380;
+    -fx-max-width: 380;
+}
+
+/* ===== Title ===== */
+.app-title {
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32;
+}
+
+.app-subtitle {
+    -fx-font-size: 14;
+    -fx-text-fill: #757575;
+}
+
+/* ===== Field Label ===== */
+.field-label {
+    -fx-font-size: 13;
+    -fx-text-fill: #424242;
+    -fx-font-weight: bold;
+}
+
+/* ===== Text Inputs ===== */
+.text-input {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 6;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-padding: 10;
+    -fx-font-size: 14;
+}
+
+.text-input:focused {
+    -fx-border-color: #43a047;
+    -fx-background-color: white;
+}
+
+/* ===== Login Button ===== */
+.login-button {
+    -fx-background-color: #2e7d32;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-padding: 12;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #388e3c;
+}
+
+.login-button:pressed {
+    -fx-background-color: #1b5e20;
+}
+
+/* ===== Error Label ===== */
+.error-label {
+    -fx-text-fill: #d32f2f;
+    -fx-font-size: 13;
+}
+
+/* ===== Success Label ===== */
+.success-label {
+    -fx-text-fill: #2e7d32;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
+
+/* ===== Hyperlink ===== */
+.link-text {
+    -fx-text-fill: #2e7d32;
+    -fx-font-size: 13;
+}
+
+.link-text:hover {
+    -fx-text-fill: #1b5e20;
+}
+
+/* ===== Dashboard Sidebar ===== */
+.sidebar {
+    -fx-background-color: #2e7d32;
+}
+
+.sidebar-title {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.sidebar-user-name {
+    -fx-font-size: 13;
+    -fx-text-fill: #c8e6c9;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 10 15;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar-button-logout {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: #ffcdd2;
+    -fx-font-size: 14;
+    -fx-padding: 10 15;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+
+.sidebar-button-logout:hover {
+    -fx-background-color: #c62828;
+    -fx-text-fill: white;
+}
+
+/* ===== Content Area ===== */
+.content-area {
+    -fx-background-color: #f5f5f5;
+}
+
+.content-title {
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32;
+}
+
+/* ===== Table Styles ===== */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #e8f5e9;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #2e7d32;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #c8e6c9;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: #1b5e20;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+/* ===== Action Buttons ===== */
+.action-button-add {
+    -fx-background-color: #2e7d32;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button-add:hover {
+    -fx-background-color: #388e3c;
+}
+
+.action-button-edit {
+    -fx-background-color: #1565c0;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button-edit:hover {
+    -fx-background-color: #1976d2;
+}
+
+.action-button-delete {
+    -fx-background-color: #c62828;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button-delete:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* ===== Profile Form ===== */
+.profile-form {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+}
+
+.profile-form .label {
+    -fx-font-size: 13;
+    -fx-text-fill: #424242;
+    -fx-font-weight: bold;
+}
+
+.profile-save-button {
+    -fx-background-color: #2e7d32;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 10 30;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.profile-save-button:hover {
+    -fx-background-color: #388e3c;
+}
+
+.profile-save-button:pressed {
+    -fx-background-color: #1b5e20;
+}
+
+/* ===== Search Field ===== */
+.search-field {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #c8e6c9;
+    -fx-border-radius: 20;
+    -fx-padding: 8 16;
+    -fx-font-size: 13;
+}
+
+.search-field:focused {
+    -fx-border-color: #43a047;
+}
+
+/* ===== Filter ComboBox ===== */
+.filter-combo {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-color: #c8e6c9;
+    -fx-border-radius: 6;
+    -fx-padding: 6 12;
+    -fx-font-size: 13;
+    -fx-min-width: 130;
+}
+
+/* ===== Block/Unblock Button ===== */
+.action-button-block {
+    -fx-background-color: #f57c00;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button-block:hover {
+    -fx-background-color: #fb8c00;
+}
+
+/* ===== Stat Cards ===== */
+.stat-card {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+.stat-card-value {
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.stat-card-label {
+    -fx-font-size: 13;
+    -fx-text-fill: rgba(255,255,255,0.85);
+}
+
+.stat-card-total {
+    -fx-background-color: #1565c0;
+}
+
+.stat-card-active {
+    -fx-background-color: #2e7d32;
+}
+
+.stat-card-inactive {
+    -fx-background-color: #757575;
+}
+
+.stat-card-blocked {
+    -fx-background-color: #c62828;
+}
+
+/* ===== Profile Picture ===== */
+.profile-pic-button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #424242;
+    -fx-font-size: 12;
+    -fx-padding: 6 16;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.profile-pic-button:hover {
+    -fx-background-color: #bdbdbd;
+}
+
+.profile-pic-delete-button {
+    -fx-background-color: #ffcdd2;
+    -fx-text-fill: #c62828;
+    -fx-font-size: 12;
+    -fx-padding: 6 16;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+
+.profile-pic-delete-button:hover {
+    -fx-background-color: #ef9a9a;
+}
