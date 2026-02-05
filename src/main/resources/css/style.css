@@ -294,6 +294,36 @@
     -fx-background-color: #fb8c00;
 }
 
+/* ===== Approve Button ===== */
+.action-button-approve {
+    -fx-background-color: #2e7d32;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button-approve:hover {
+    -fx-background-color: #388e3c;
+}
+
+/* ===== Reject Button ===== */
+.action-button-reject {
+    -fx-background-color: #c62828;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.action-button-reject:hover {
+    -fx-background-color: #d32f2f;
+}
+
 /* ===== Stat Cards ===== */
 .stat-card {
     -fx-background-radius: 10;
