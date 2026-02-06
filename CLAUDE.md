@@ -28,6 +28,126 @@
 
 ---
 
+## Progress Tracker — Module 2: Farm Management (Shahed)
+
+### Done
+- [x] Farm.java model (id, userId, name, location, latitude, longitude, area, farmType, description, image, status, approvedAt, approvedBy, timestamps)
+- [x] Field.java model (id, farmId, name, area, soilType, cropType, coordinates, status, timestamps)
+- [x] FarmService.java with CRUD + getByUserId, approve/reject methods
+- [x] FieldService.java with CRUD + getByFarmId
+- [x] Admin: Farms view (all farms table, search/filter, Add/Edit/Delete, Approve/Reject)
+- [x] Farmer: My Farms view (own farms only, Add/Edit/Delete)
+- [x] Fields nested view (click farm → manage its fields)
+- [x] Interactive map picker (WebView + Leaflet/OpenStreetMap) for lat/lng coordinates
+- [x] CSS: .action-button-approve (green) and .action-button-reject (red) styles
+- [x] Farm status workflow: pending → approved/rejected
+
+### To Do
+- [ ] Farm image upload
+- [ ] Map view of all farms
+
+---
+
+## Progress Tracker — Module 3: Market Management (Ghada)
+
+### Done
+- [x] Product.java model (id, userId, farmId, name, description, price, quantity, unit, category, image, status, views, approvedAt, approvedBy, timestamps)
+- [x] Order.java model (id, customerId, productId, sellerId, quantity, unitPrice, totalPrice, status, shipping info, dates, timestamps)
+- [x] CartItem.java model (id, userId, productId, quantity, transient product fields for display)
+- [x] ProductService.java with CRUD + getByUserId, getApproved, incrementViews, decrementQuantity
+- [x] OrderService.java with CRUD + getByCustomerId, getBySellerId, updateStatus
+- [x] CartService.java with addToCart, updateQuantity, removeFromCart, clearCart, getCartItems, getCartTotal
+- [x] Admin: Products view (all products, search/filter, Approve/Reject)
+- [x] Admin: Orders view (all orders, update status)
+- [x] Farmer: My Products view (own products, Add/Edit/Delete)
+- [x] Farmer: My Orders view (orders for their products, update status)
+- [x] Customer: Shop view (browse approved products, add to cart)
+- [x] Customer: Cart view (view cart, update quantities, remove items, checkout)
+- [x] Customer: My Orders view (own orders with status)
+- [x] Checkout flow with shipping address form
+- [x] Category dropdown (Fruits, Vegetables, Dairy, Meat, Grains, Herbs, Honey, Eggs, Other)
+
+### To Do
+- [ ] Product image upload
+- [ ] Order notifications
+- [ ] Payment integration
+
+---
+
+## Progress Tracker — Module 4: Blog Management (Rania)
+
+### Done
+- [x] Post.java model (id, userId, title, slug, content, excerpt, image, category, tags, status, views, publishedAt, timestamps, transient userName)
+- [x] Comment.java model (id, postId, userId, parentCommentId, content, status, approvedAt, approvedBy, timestamps, transient userName)
+- [x] PostService.java with CRUD + getByUserId, getPublished, incrementViews, publish/unpublish, author name joins
+- [x] CommentService.java with CRUD + getByPostId, getApprovedByPostId, approve/reject
+- [x] Admin: Posts management view (all posts, Add/Edit/Delete, Publish/Unpublish)
+- [x] Admin: Blog browse view (read posts, delete any comment, block/unblock users from comments)
+- [x] Farmer/Customer: Blog view (browse published posts, double-click to open)
+- [x] Farmer/Customer: My Posts view (own posts, Add/Edit/Delete, Publish)
+- [x] Post detail view with comments section
+- [x] Add comment functionality (auto-approved, no moderation needed)
+- [x] Post owner can delete any comment on their post
+- [x] Comment author can delete their own comment
+- [x] Admin block/unblock toggle button on comments (shows "Block User" or "Blocked")
+- [x] Author name displayed in blog table and post detail
+- [x] Category dropdown for posts (Agriculture, Technology, Farming Tips, Livestock, Organic, Weather, Equipment, Success Stories, Other)
+- [x] Enter key login support (press Enter in email/password field to login)
+- [x] Fix: dashboard.fxml XML declaration must be on line 1
+
+### To Do
+- [ ] Post image upload
+- [ ] Rich text editor for post content
+- [ ] Comment replies (nested comments)
+- [ ] Like/reaction system
+
+---
+
+## Progress Tracker — Module 5: Event Management (Ayman)
+
+### To Do
+- [ ] Event.java model
+- [ ] Participation.java model
+- [ ] EventService.java with CRUD
+- [ ] ParticipationService.java with CRUD
+- [ ] Admin: Events management view
+- [ ] User: Browse events, register participation
+- [ ] Event calendar view
+
+---
+
+## Code Patterns & Conventions
+
+### Models
+- Package: `esprit.farouk.models`
+- Use `long` for IDs (primitive), `Long` for nullable foreign keys
+- Use `LocalDateTime` for timestamps
+- Constructors: empty + minimal + full
+- Inline getters/setters on single lines
+- Transient fields (e.g., `userName`) for display data from JOINs
+
+### Services
+- Package: `esprit.farouk.services`
+- `Connection` field from `DatabaseConnection.getConnection()`
+- `PreparedStatement` for all queries (SQL injection prevention)
+- `mapRow(ResultSet)` helper method for object mapping
+- Null-safe timestamp handling: `if (timestamp != null) obj.setField(timestamp.toLocalDateTime())`
+- Nullable primitives: use `rs.wasNull()` after `rs.getLong()`
+
+### Controllers
+- Package: `esprit.farouk.controllers`
+- DashboardController: All views built programmatically in Java (no separate FXML per view)
+- Content swapped via `contentArea.getChildren().clear()` + add new layout
+- Tables: `FilteredList` + `SortedList` pattern for live search/filter
+- Forms: `Dialog<ButtonType>` with `GridPane`, validation loop (`while(true)` re-show on error)
+- Role-based sidebar: three branches (admin, farmer, customer)
+
+### FXML
+- XML declaration `<?xml version="1.0"...?>` MUST be on line 1 (no empty lines before)
+- `onAction="#methodName"` for button clicks and Enter key on text fields
+
+---
+
 ## Project Overview
 
 
