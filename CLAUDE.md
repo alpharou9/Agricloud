@@ -105,14 +105,22 @@
 
 ## Progress Tracker — Module 5: Event Management (Ayman)
 
+### Done
+- [x] Event.java model (id, userId, title, slug, description, eventDate, endDate, location, lat/lng, capacity, category, status, timestamps, transient userName/participantCount)
+- [x] Participation.java model (id, eventId, userId, status, notes, attended, cancelledAt, cancelledReason, timestamps, transient userName/eventTitle)
+- [x] EventService.java with CRUD + getUpcoming, getByUserId, cancel
+- [x] ParticipationService.java with CRUD + getByEventId, getByUserId, getByEventAndUser, cancel, markAttended
+- [x] Admin: Events management view (Add/Edit/Delete, Cancel Event, double-click to view participants)
+- [x] Admin: Participants view (Mark Attended, Remove participant)
+- [x] Farmer/Customer: Browse upcoming events (search, double-click to view details)
+- [x] Farmer/Customer: Event detail view with Register button (capacity check)
+- [x] Farmer/Customer: My Registrations view (cancel registration)
+- [x] Re-registration fix: update existing cancelled record instead of duplicate insert
+
 ### To Do
-- [ ] Event.java model
-- [ ] Participation.java model
-- [ ] EventService.java with CRUD
-- [ ] ParticipationService.java with CRUD
-- [ ] Admin: Events management view
-- [ ] User: Browse events, register participation
+- [ ] Event image upload
 - [ ] Event calendar view
+- [ ] Email notifications for registrations
 
 ---
 
