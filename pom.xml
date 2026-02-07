@@ -16,6 +16,7 @@
         <javafx.version>17.0.2</javafx.version>
     </properties>
 
+
     <dependencies>
         <!-- MySQL Connector -->
         <dependency>
@@ -53,6 +54,13 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
+        </dependency>
+
+        <!-- AtlantaFX Modern Theme -->
+        <dependency>
+            <groupId>io.github.mkpaz</groupId>
+            <artifactId>atlantafx-base</artifactId>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
 

@@ -93,6 +93,15 @@ public class DashboardController {
 
     private User currentUser;
 
+    private void setActiveSidebarButton(Button activeBtn) {
+        for (var node : sidebarMenu.getChildren()) {
+            node.getStyleClass().remove("sidebar-button-active");
+        }
+        if (!activeBtn.getStyleClass().contains("sidebar-button-active")) {
+            activeBtn.getStyleClass().add("sidebar-button-active");
+        }
+    }
+
     public void setCurrentUser(User user) {
         this.currentUser = user;
         userNameLabel.setText("Welcome, " + user.getName());
@@ -110,121 +119,238 @@ public class DashboardController {
         }
 
         if ("admin".equalsIgnoreCase(roleName)) {
+            Button homeBtn = new Button("Home");
+            homeBtn.getStyleClass().add("sidebar-button");
+            homeBtn.setMaxWidth(Double.MAX_VALUE);
+            homeBtn.setOnAction(e -> { setActiveSidebarButton(homeBtn); showHomeView(); });
+
             Button usersBtn = new Button("Users");
             usersBtn.getStyleClass().add("sidebar-button");
             usersBtn.setMaxWidth(Double.MAX_VALUE);
-            usersBtn.setOnAction(e -> showUsersView());
+            usersBtn.setOnAction(e -> { setActiveSidebarButton(usersBtn); showUsersView(); });
 
             Button rolesBtn = new Button("Roles");
             rolesBtn.getStyleClass().add("sidebar-button");
             rolesBtn.setMaxWidth(Double.MAX_VALUE);
-            rolesBtn.setOnAction(e -> showRolesView());
+            rolesBtn.setOnAction(e -> { setActiveSidebarButton(rolesBtn); showRolesView(); });
 
             Button farmsBtn = new Button("Farms");
             farmsBtn.getStyleClass().add("sidebar-button");
             farmsBtn.setMaxWidth(Double.MAX_VALUE);
-            farmsBtn.setOnAction(e -> showFarmsView());
+            farmsBtn.setOnAction(e -> { setActiveSidebarButton(farmsBtn); showFarmsView(); });
 
             Button productsBtn = new Button("Products");
             productsBtn.getStyleClass().add("sidebar-button");
             productsBtn.setMaxWidth(Double.MAX_VALUE);
-            productsBtn.setOnAction(e -> showProductsView());
+            productsBtn.setOnAction(e -> { setActiveSidebarButton(productsBtn); showProductsView(); });
 
             Button ordersBtn = new Button("Orders");
             ordersBtn.getStyleClass().add("sidebar-button");
             ordersBtn.setMaxWidth(Double.MAX_VALUE);
-            ordersBtn.setOnAction(e -> showAllOrdersView());
+            ordersBtn.setOnAction(e -> { setActiveSidebarButton(ordersBtn); showAllOrdersView(); });
 
             Button postsBtn = new Button("Posts");
             postsBtn.getStyleClass().add("sidebar-button");
             postsBtn.setMaxWidth(Double.MAX_VALUE);
-            postsBtn.setOnAction(e -> showPostsView());
+            postsBtn.setOnAction(e -> { setActiveSidebarButton(postsBtn); showPostsView(); });
 
             Button blogBtn = new Button("Blog");
             blogBtn.getStyleClass().add("sidebar-button");
             blogBtn.setMaxWidth(Double.MAX_VALUE);
-            blogBtn.setOnAction(e -> showBlogView());
+            blogBtn.setOnAction(e -> { setActiveSidebarButton(blogBtn); showBlogView(); });
 
             Button eventsBtn = new Button("Events");
             eventsBtn.getStyleClass().add("sidebar-button");
             eventsBtn.setMaxWidth(Double.MAX_VALUE);
-            eventsBtn.setOnAction(e -> showEventsView());
+            eventsBtn.setOnAction(e -> { setActiveSidebarButton(eventsBtn); showEventsView(); });
 
             Button statsBtn = new Button("Statistics");
             statsBtn.getStyleClass().add("sidebar-button");
             statsBtn.setMaxWidth(Double.MAX_VALUE);
-            statsBtn.setOnAction(e -> showStatisticsView());
+            statsBtn.setOnAction(e -> { setActiveSidebarButton(statsBtn); showStatisticsView(); });
 
-            sidebarMenu.getChildren().addAll(usersBtn, rolesBtn, farmsBtn, productsBtn, ordersBtn, postsBtn, blogBtn, eventsBtn, statsBtn);
-            showUsersView();
+            sidebarMenu.getChildren().addAll(homeBtn, usersBtn, rolesBtn, farmsBtn, productsBtn, ordersBtn, postsBtn, blogBtn, eventsBtn, statsBtn);
+            setActiveSidebarButton(homeBtn);
+            showHomeView();
         } else if ("farmer".equalsIgnoreCase(roleName)) {
+            Button homeBtn = new Button("Home");
+            homeBtn.getStyleClass().add("sidebar-button");
+            homeBtn.setMaxWidth(Double.MAX_VALUE);
+            homeBtn.setOnAction(e -> { setActiveSidebarButton(homeBtn); showHomeView(); });
+
             Button profileBtn = new Button("Profile");
             profileBtn.getStyleClass().add("sidebar-button");
             profileBtn.setMaxWidth(Double.MAX_VALUE);
-            profileBtn.setOnAction(e -> showProfileView());
+            profileBtn.setOnAction(e -> { setActiveSidebarButton(profileBtn); showProfileView(); });
 
             Button myFarmsBtn = new Button("My Farms");
             myFarmsBtn.getStyleClass().add("sidebar-button");
             myFarmsBtn.setMaxWidth(Double.MAX_VALUE);
-            myFarmsBtn.setOnAction(e -> showMyFarmsView());
+            myFarmsBtn.setOnAction(e -> { setActiveSidebarButton(myFarmsBtn); showMyFarmsView(); });
 
             Button myProductsBtn = new Button("My Products");
             myProductsBtn.getStyleClass().add("sidebar-button");
             myProductsBtn.setMaxWidth(Double.MAX_VALUE);
-            myProductsBtn.setOnAction(e -> showMyProductsView());
+            myProductsBtn.setOnAction(e -> { setActiveSidebarButton(myProductsBtn); showMyProductsView(); });
 
             Button farmerOrdersBtn = new Button("My Orders");
             farmerOrdersBtn.getStyleClass().add("sidebar-button");
             farmerOrdersBtn.setMaxWidth(Double.MAX_VALUE);
-            farmerOrdersBtn.setOnAction(e -> showSellerOrdersView());
+            farmerOrdersBtn.setOnAction(e -> { setActiveSidebarButton(farmerOrdersBtn); showSellerOrdersView(); });
 
             Button farmerBlogBtn = new Button("Blog");
             farmerBlogBtn.getStyleClass().add("sidebar-button");
             farmerBlogBtn.setMaxWidth(Double.MAX_VALUE);
-            farmerBlogBtn.setOnAction(e -> showBlogView());
+            farmerBlogBtn.setOnAction(e -> { setActiveSidebarButton(farmerBlogBtn); showBlogView(); });
 
             Button farmerEventsBtn = new Button("Events");
             farmerEventsBtn.getStyleClass().add("sidebar-button");
             farmerEventsBtn.setMaxWidth(Double.MAX_VALUE);
-            farmerEventsBtn.setOnAction(e -> showBrowseEventsView());
+            farmerEventsBtn.setOnAction(e -> { setActiveSidebarButton(farmerEventsBtn); showBrowseEventsView(); });
 
-            sidebarMenu.getChildren().addAll(profileBtn, myFarmsBtn, myProductsBtn, farmerOrdersBtn, farmerBlogBtn, farmerEventsBtn);
-            showProfileView();
+            sidebarMenu.getChildren().addAll(homeBtn, profileBtn, myFarmsBtn, myProductsBtn, farmerOrdersBtn, farmerBlogBtn, farmerEventsBtn);
+            setActiveSidebarButton(homeBtn);
+            showHomeView();
         } else {
             // Customer or other roles
+            Button homeBtn = new Button("Home");
+            homeBtn.getStyleClass().add("sidebar-button");
+            homeBtn.setMaxWidth(Double.MAX_VALUE);
+            homeBtn.setOnAction(e -> { setActiveSidebarButton(homeBtn); showHomeView(); });
+
             Button profileBtn = new Button("Profile");
             profileBtn.getStyleClass().add("sidebar-button");
             profileBtn.setMaxWidth(Double.MAX_VALUE);
-            profileBtn.setOnAction(e -> showProfileView());
+            profileBtn.setOnAction(e -> { setActiveSidebarButton(profileBtn); showProfileView(); });
 
             Button shopBtn = new Button("Shop");
             shopBtn.getStyleClass().add("sidebar-button");
             shopBtn.setMaxWidth(Double.MAX_VALUE);
-            shopBtn.setOnAction(e -> showShopView());
+            shopBtn.setOnAction(e -> { setActiveSidebarButton(shopBtn); showShopView(); });
 
             Button cartBtn = new Button("Cart");
             cartBtn.getStyleClass().add("sidebar-button");
             cartBtn.setMaxWidth(Double.MAX_VALUE);
-            cartBtn.setOnAction(e -> showCartView());
+            cartBtn.setOnAction(e -> { setActiveSidebarButton(cartBtn); showCartView(); });
 
             Button customerOrdersBtn = new Button("My Orders");
             customerOrdersBtn.getStyleClass().add("sidebar-button");
             customerOrdersBtn.setMaxWidth(Double.MAX_VALUE);
-            customerOrdersBtn.setOnAction(e -> showCustomerOrdersView());
+            customerOrdersBtn.setOnAction(e -> { setActiveSidebarButton(customerOrdersBtn); showCustomerOrdersView(); });
 
             Button customerBlogBtn = new Button("Blog");
             customerBlogBtn.getStyleClass().add("sidebar-button");
             customerBlogBtn.setMaxWidth(Double.MAX_VALUE);
-            customerBlogBtn.setOnAction(e -> showBlogView());
+            customerBlogBtn.setOnAction(e -> { setActiveSidebarButton(customerBlogBtn); showBlogView(); });
 
             Button customerEventsBtn = new Button("Events");
             customerEventsBtn.getStyleClass().add("sidebar-button");
             customerEventsBtn.setMaxWidth(Double.MAX_VALUE);
-            customerEventsBtn.setOnAction(e -> showBrowseEventsView());
+            customerEventsBtn.setOnAction(e -> { setActiveSidebarButton(customerEventsBtn); showBrowseEventsView(); });
 
-            sidebarMenu.getChildren().addAll(profileBtn, shopBtn, cartBtn, customerOrdersBtn, customerBlogBtn, customerEventsBtn);
-            showShopView();
+            sidebarMenu.getChildren().addAll(homeBtn, profileBtn, shopBtn, cartBtn, customerOrdersBtn, customerBlogBtn, customerEventsBtn);
+            setActiveSidebarButton(homeBtn);
+            showHomeView();
         }
+    }
+
+    // ==================== Home / Welcome Page ====================
+
+    private void showHomeView() {
+        contentArea.getChildren().clear();
+
+        VBox container = new VBox(20);
+        container.setAlignment(Pos.TOP_CENTER);
+        container.setPadding(new Insets(30));
+
+        // Welcome greeting
+        Label welcomeTitle = new Label("Welcome back, " + currentUser.getName() + "!");
+        welcomeTitle.getStyleClass().add("welcome-title");
+
+        String roleName = "";
+        try {
+            Role role = roleService.getById(currentUser.getRoleId());
+            if (role != null) roleName = role.getName();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String dateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy"));
+        Label subtitle = new Label(dateStr + "  |  " + roleName.substring(0, 1).toUpperCase() + roleName.substring(1));
+        subtitle.getStyleClass().add("welcome-subtitle");
+
+        VBox header = new VBox(5);
+        header.setAlignment(Pos.CENTER);
+        header.getChildren().addAll(welcomeTitle, subtitle);
+
+        // Welcome card container
+        VBox welcomeCard = new VBox(25);
+        welcomeCard.getStyleClass().add("welcome-card");
+        welcomeCard.setPadding(new Insets(30));
+        welcomeCard.setAlignment(Pos.TOP_CENTER);
+        welcomeCard.setMaxWidth(900);
+
+        welcomeCard.getChildren().add(header);
+
+        // Stat cards based on role
+        HBox cards = new HBox(15);
+        cards.setAlignment(Pos.CENTER);
+
+        try {
+            if ("admin".equalsIgnoreCase(roleName)) {
+                int totalUsers = userService.getAll().size();
+                int totalFarms = farmService.getAll().size();
+                int totalProducts = productService.getAll().size();
+                int totalOrders = orderService.getAll().size();
+                int totalPosts = postService.getAll().size();
+                int totalEvents = eventService.getAll().size();
+
+                cards.getChildren().addAll(
+                    createStatCard("Total Users", String.valueOf(totalUsers), "stat-card-total"),
+                    createStatCard("Total Farms", String.valueOf(totalFarms), "stat-card-farms"),
+                    createStatCard("Total Products", String.valueOf(totalProducts), "stat-card-products"),
+                    createStatCard("Total Orders", String.valueOf(totalOrders), "stat-card-orders"),
+                    createStatCard("Total Posts", String.valueOf(totalPosts), "stat-card-posts"),
+                    createStatCard("Total Events", String.valueOf(totalEvents), "stat-card-events")
+                );
+            } else if ("farmer".equalsIgnoreCase(roleName)) {
+                int myFarms = farmService.getByUserId(currentUser.getId()).size();
+                int myProducts = productService.getByUserId(currentUser.getId()).size();
+                long pendingOrders = orderService.getBySellerId(currentUser.getId()).stream()
+                        .filter(o -> "pending".equals(o.getStatus())).count();
+                int upcomingEvents = eventService.getUpcoming().size();
+
+                cards.getChildren().addAll(
+                    createStatCard("My Farms", String.valueOf(myFarms), "stat-card-farms"),
+                    createStatCard("My Products", String.valueOf(myProducts), "stat-card-products"),
+                    createStatCard("Pending Orders", String.valueOf(pendingOrders), "stat-card-orders"),
+                    createStatCard("Upcoming Events", String.valueOf(upcomingEvents), "stat-card-events")
+                );
+            } else {
+                // Customer
+                int myOrders = orderService.getByCustomerId(currentUser.getId()).size();
+                int cartItems = cartService.getCartItems(currentUser.getId()).size();
+                int publishedPosts = postService.getPublished().size();
+                int upcomingEvents = eventService.getUpcoming().size();
+
+                cards.getChildren().addAll(
+                    createStatCard("My Orders", String.valueOf(myOrders), "stat-card-orders"),
+                    createStatCard("Cart Items", String.valueOf(cartItems), "stat-card-products"),
+                    createStatCard("Blog Posts", String.valueOf(publishedPosts), "stat-card-posts"),
+                    createStatCard("Upcoming Events", String.valueOf(upcomingEvents), "stat-card-events")
+                );
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load stats: " + e.getMessage());
+        }
+
+        welcomeCard.getChildren().add(cards);
+        container.getChildren().add(welcomeCard);
+
+        ScrollPane scroll = new ScrollPane(container);
+        scroll.setFitToWidth(true);
+        scroll.setStyle("-fx-background-color: transparent;");
+        contentArea.getChildren().add(scroll);
     }
 
     @FXML

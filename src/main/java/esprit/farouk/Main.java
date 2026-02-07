@@ -1,5 +1,6 @@
 package esprit.farouk;
 
+import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
