@@ -17,9 +17,11 @@
 - [x] Forgot Password flow (email-based 6-digit code via Gmail SMTP)
 - [x] Blocked user login prevention (shows error on login screen)
 - [x] ValidationUtils utility class
-- [x] EmailUtils utility class (Gmail SMTP SSL on port 465)
+- [x] EmailUtils utility class (Gmail SMTP SSL on port 465) for password reset and order confirmation emails
 - [x] CSS styling for all views (login, dashboard, tables, stat cards, search/filter)
 - [x] Guest role with limited permissions (home, shop, cart, orders, blog view only, events view/register, no profile, no commenting)
+- [x] Unique guest sessions with UUID-based user instances (isolated cart/orders per session)
+- [x] Guest user cleanup utility (removes guest users older than 24 hours)
 
 ### To Do
 - [ ] Profile picture upload
@@ -65,12 +67,14 @@
 - [x] Customer: Shop view (browse approved products, add to cart)
 - [x] Customer: Cart view (view cart, update quantities, remove items, checkout)
 - [x] Customer: My Orders view (own orders with status)
-- [x] Checkout flow with shipping address form
+- [x] Checkout flow with shipping details (email, phone, address, city, postal, notes)
+- [x] Email and phone validation during checkout
+- [x] Order confirmation emails sent automatically after checkout
+- [x] Order emails include delivery timeline (3 business days maximum)
 - [x] Category dropdown (Fruits, Vegetables, Dairy, Meat, Grains, Herbs, Honey, Eggs, Other)
 
 ### To Do
 - [ ] Product image upload
-- [ ] Order notifications
 - [ ] Payment integration
 
 ---
@@ -198,7 +202,7 @@
 - ❌ **No Profile** (no profile editing access)
 - ❌ **No Commenting** (can view blog posts but cannot add comments)
 - ❌ **No My Posts** (cannot create blog posts)
-- **⚠️ Session Behavior:** Guest sessions are temporary. When guest logs off, session is lost. When relogging as guest, previous profile/data is not retained. (This is a placeholder implementation to be improved later)
+- **✅ Session Behavior:** Each guest login creates a unique isolated session with UUID-based user instance. Guest cart and orders are NOT shared between different guest sessions. Old guest users (>24 hours) are automatically cleaned up to prevent database bloat.
 
 ---
 
@@ -388,6 +392,8 @@ CREATE TABLE orders (
     shipping_address TEXT NOT NULL,
     shipping_city VARCHAR(100),
     shipping_postal VARCHAR(20),
+    shipping_email VARCHAR(150),
+    shipping_phone VARCHAR(20),
     notes TEXT,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     delivery_date DATE,
@@ -658,6 +664,8 @@ public class Order {
     private String shippingAddress;
     private String shippingCity;
     private String shippingPostal;
+    private String shippingEmail;
+    private String shippingPhone;
     private String notes;
     private LocalDateTime orderDate;
     private LocalDate deliveryDate;
