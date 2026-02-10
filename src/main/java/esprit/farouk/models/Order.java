@@ -15,6 +15,8 @@ public class Order {
     private String shippingAddress;
     private String shippingCity;
     private String shippingPostal;
+    private String shippingEmail;
+    private String shippingPhone;
     private String notes;
     private LocalDateTime orderDate;
     private LocalDate deliveryDate;
@@ -39,9 +41,9 @@ public class Order {
 
     public Order(long id, long customerId, long productId, long sellerId, int quantity,
                  double unitPrice, double totalPrice, String status, String shippingAddress,
-                 String shippingCity, String shippingPostal, String notes, LocalDateTime orderDate,
-                 LocalDate deliveryDate, LocalDateTime cancelledAt, String cancelledReason,
-                 LocalDateTime createdAt, LocalDateTime updatedAt) {
+                 String shippingCity, String shippingPostal, String shippingEmail, String shippingPhone,
+                 String notes, LocalDateTime orderDate, LocalDate deliveryDate, LocalDateTime cancelledAt,
+                 String cancelledReason, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.customerId = customerId;
         this.productId = productId;
@@ -53,6 +55,8 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.shippingCity = shippingCity;
         this.shippingPostal = shippingPostal;
+        this.shippingEmail = shippingEmail;
+        this.shippingPhone = shippingPhone;
         this.notes = notes;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
@@ -94,6 +98,12 @@ public class Order {
 
     public String getShippingPostal() { return shippingPostal; }
     public void setShippingPostal(String shippingPostal) { this.shippingPostal = shippingPostal; }
+
+    public String getShippingEmail() { return shippingEmail; }
+    public void setShippingEmail(String shippingEmail) { this.shippingEmail = shippingEmail; }
+
+    public String getShippingPhone() { return shippingPhone; }
+    public void setShippingPhone(String shippingPhone) { this.shippingPhone = shippingPhone; }
 
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }

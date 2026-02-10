@@ -51,5 +51,11 @@
             <Label text="Don't have an account?" styleClass="app-subtitle"/>
             <Hyperlink text="Register" onAction="#goToRegister" styleClass="link-text"/>
         </HBox>
+
+        <!-- Separator -->
+        <Label text="- OR -" styleClass="app-subtitle"/>
+
+        <!-- Guest login button -->
+        <Button text="Continue as Guest" onAction="#handleGuestLogin" styleClass="guest-button" maxWidth="Infinity"/>
     </VBox>
 </HBox>

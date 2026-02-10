@@ -95,6 +95,31 @@
     -fx-effect: dropshadow(gaussian, rgba(22, 163, 74, 0.15), 4, 0, 0, 1);
 }
 
+/* ===== Guest Button ===== */
+.guest-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-muted;
+    -fx-font-size: 14;
+    -fx-font-weight: normal;
+    -fx-padding: 10 24;
+    -fx-background-radius: 8;
+    -fx-border-color: -color-border;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+
+.guest-button:hover {
+    -fx-background-color: -color-surface-alt;
+    -fx-text-fill: -color-text;
+    -fx-border-color: -color-text-muted;
+}
+
+.guest-button:pressed {
+    -fx-background-color: -color-border;
+    -fx-text-fill: -color-text;
+}
+
 /* ===== Error Label ===== */
 .error-label {
     -fx-text-fill: -color-danger;

@@ -17,8 +17,8 @@ public class OrderService {
 
     public void add(Order order) throws SQLException {
         String sql = "INSERT INTO orders (customer_id, product_id, seller_id, quantity, unit_price, total_price, " +
-                     "status, shipping_address, shipping_city, shipping_postal, notes, order_date) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                     "status, shipping_address, shipping_city, shipping_postal, shipping_email, shipping_phone, notes, order_date) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setLong(1, order.getCustomerId());
         ps.setLong(2, order.getProductId());
@@ -30,15 +30,17 @@ public class OrderService {
         ps.setString(8, order.getShippingAddress());
         ps.setString(9, order.getShippingCity());
         ps.setString(10, order.getShippingPostal());
-        ps.setString(11, order.getNotes());
-        ps.setTimestamp(12, order.getOrderDate() != null ? Timestamp.valueOf(order.getOrderDate()) : Timestamp.valueOf(java.time.LocalDateTime.now()));
+        ps.setString(11, order.getShippingEmail());
+        ps.setString(12, order.getShippingPhone());
+        ps.setString(13, order.getNotes());
+        ps.setTimestamp(14, order.getOrderDate() != null ? Timestamp.valueOf(order.getOrderDate()) : Timestamp.valueOf(java.time.LocalDateTime.now()));
         ps.executeUpdate();
     }
 
     public void update(Order order) throws SQLException {
         String sql = "UPDATE orders SET customer_id = ?, product_id = ?, seller_id = ?, quantity = ?, " +
                      "unit_price = ?, total_price = ?, status = ?, shipping_address = ?, shipping_city = ?, " +
-                     "shipping_postal = ?, notes = ?, delivery_date = ?, cancelled_at = ?, cancelled_reason = ? WHERE id = ?";
+                     "shipping_postal = ?, shipping_email = ?, shipping_phone = ?, notes = ?, delivery_date = ?, cancelled_at = ?, cancelled_reason = ? WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setLong(1, order.getCustomerId());
         ps.setLong(2, order.getProductId());
@@ -50,11 +52,13 @@ public class OrderService {
         ps.setString(8, order.getShippingAddress());
         ps.setString(9, order.getShippingCity());
         ps.setString(10, order.getShippingPostal());
-        ps.setString(11, order.getNotes());
-        if (order.getDeliveryDate() != null) ps.setDate(12, Date.valueOf(order.getDeliveryDate())); else ps.setNull(12, Types.DATE);
-        if (order.getCancelledAt() != null) ps.setTimestamp(13, Timestamp.valueOf(order.getCancelledAt())); else ps.setNull(13, Types.TIMESTAMP);
-        ps.setString(14, order.getCancelledReason());
-        ps.setLong(15, order.getId());
+        ps.setString(11, order.getShippingEmail());
+        ps.setString(12, order.getShippingPhone());
+        ps.setString(13, order.getNotes());
+        if (order.getDeliveryDate() != null) ps.setDate(14, Date.valueOf(order.getDeliveryDate())); else ps.setNull(14, Types.DATE);
+        if (order.getCancelledAt() != null) ps.setTimestamp(15, Timestamp.valueOf(order.getCancelledAt())); else ps.setNull(15, Types.TIMESTAMP);
+        ps.setString(16, order.getCancelledReason());
+        ps.setLong(17, order.getId());
         ps.executeUpdate();
     }
 
@@ -132,6 +136,8 @@ public class OrderService {
         order.setShippingAddress(rs.getString("shipping_address"));
         order.setShippingCity(rs.getString("shipping_city"));
         order.setShippingPostal(rs.getString("shipping_postal"));
+        order.setShippingEmail(rs.getString("shipping_email"));
+        order.setShippingPhone(rs.getString("shipping_phone"));
         order.setNotes(rs.getString("notes"));
         Timestamp orderDate = rs.getTimestamp("order_date");
         if (orderDate != null) order.setOrderDate(orderDate.toLocalDateTime());

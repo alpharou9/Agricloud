@@ -1,6 +1,8 @@
 package esprit.farouk.controllers;
 
+import esprit.farouk.models.Role;
 import esprit.farouk.models.User;
+import esprit.farouk.services.RoleService;
 import esprit.farouk.services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class LoginController {
 
@@ -25,6 +28,7 @@ public class LoginController {
     private Label errorLabel;
 
     private final UserService userService = new UserService();
+    private final RoleService roleService = new RoleService();
 
     @FXML
     private void handleLogin() {
@@ -89,6 +93,39 @@ public class LoginController {
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
             stage.setScene(scene);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleGuestLogin() {
+        try {
+            // Create unique guest user for this session
+            User guestUser = userService.createUniqueGuestUser();
+
+            if (guestUser == null) {
+                showError("Failed to create guest session. Please contact administrator.");
+                return;
+            }
+
+            hideError();
+            System.out.println("Guest login successful: " + guestUser.getName() + " (ID: " + guestUser.getId() + ")");
+
+            // Navigate to dashboard
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            Parent root = loader.load();
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setCurrentUser(guestUser);
+
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            Scene scene = new Scene(root, 1100, 700);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (SQLException e) {
+            showError("Database error. Please try again.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            showError("Failed to load dashboard.");
             e.printStackTrace();
         }
     }

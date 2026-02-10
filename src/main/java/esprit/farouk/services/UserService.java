@@ -100,6 +100,51 @@ public class UserService {
         return null;
     }
 
+    /**
+     * Creates a unique temporary guest user for this session.
+     * Each guest login gets a separate user record with isolated data.
+     */
+    public User createUniqueGuestUser() throws SQLException {
+        // Generate unique identifier for this guest session
+        String sessionId = java.util.UUID.randomUUID().toString();
+        String guestEmail = "guest_" + sessionId + "@agricloud.com";
+        String guestName = "Guest_" + sessionId.substring(0, 8);
+
+        // Get Guest role
+        RoleService roleService = new RoleService();
+        esprit.farouk.models.Role guestRole = roleService.getByName("Guest");
+
+        if (guestRole == null) {
+            throw new SQLException("Guest role not found in database");
+        }
+
+        // Create new unique guest user
+        User newGuest = new User();
+        newGuest.setRoleId(guestRole.getId());
+        newGuest.setName(guestName);
+        newGuest.setEmail(guestEmail);
+        newGuest.setPassword("guest_temp_" + sessionId); // Will be hashed by add() method
+        newGuest.setPhone(null);
+        newGuest.setProfilePicture(null);
+        newGuest.setStatus("active");
+
+        add(newGuest);
+
+        // Retrieve the newly created guest user
+        return getByEmail(guestEmail);
+    }
+
+    /**
+     * Cleans up old guest users created more than 24 hours ago.
+     * Call this periodically to prevent database bloat.
+     */
+    public int cleanupOldGuestUsers() throws SQLException {
+        String sql = "DELETE FROM users WHERE email LIKE 'guest_%@agricloud.com' " +
+                     "AND created_at < NOW() - INTERVAL 24 HOUR";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        return ps.executeUpdate();
+    }
+
     private User mapRow(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getLong("id"));

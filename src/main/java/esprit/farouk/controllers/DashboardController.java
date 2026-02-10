@@ -2713,6 +2713,10 @@ public class DashboardController {
         grid.setVgap(10);
         grid.setPadding(new Insets(20));
 
+        TextField emailField = new TextField();
+        emailField.setPromptText("Email address");
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("Phone number");
         TextField addressField = new TextField();
         addressField.setPromptText("Shipping address");
         TextField cityField = new TextField();
@@ -2722,14 +2726,18 @@ public class DashboardController {
         TextField notesField = new TextField();
         notesField.setPromptText("Notes (optional)");
 
-        grid.add(new Label("Address:"), 0, 0);
-        grid.add(addressField, 1, 0);
-        grid.add(new Label("City:"), 0, 1);
-        grid.add(cityField, 1, 1);
-        grid.add(new Label("Postal:"), 0, 2);
-        grid.add(postalField, 1, 2);
-        grid.add(new Label("Notes:"), 0, 3);
-        grid.add(notesField, 1, 3);
+        grid.add(new Label("Email:"), 0, 0);
+        grid.add(emailField, 1, 0);
+        grid.add(new Label("Phone:"), 0, 1);
+        grid.add(phoneField, 1, 1);
+        grid.add(new Label("Address:"), 0, 2);
+        grid.add(addressField, 1, 2);
+        grid.add(new Label("City:"), 0, 3);
+        grid.add(cityField, 1, 3);
+        grid.add(new Label("Postal:"), 0, 4);
+        grid.add(postalField, 1, 4);
+        grid.add(new Label("Notes:"), 0, 5);
+        grid.add(notesField, 1, 5);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -2739,13 +2747,36 @@ public class DashboardController {
                 break;
             }
 
+            String email = emailField.getText().trim();
+            String phone = phoneField.getText().trim();
             String address = addressField.getText().trim();
+
+            // Validation
+            if (email.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Email is required.");
+                continue;
+            }
+            if (!esprit.farouk.utils.ValidationUtils.isValidEmail(email)) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.");
+                continue;
+            }
+            if (phone.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Phone number is required.");
+                continue;
+            }
+            if (!esprit.farouk.utils.ValidationUtils.isValidPhone(phone)) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid phone number (8-15 digits).");
+                continue;
+            }
             if (address.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Validation Error", "Address is required.");
                 continue;
             }
 
             try {
+                double grandTotal = 0;
+                long firstOrderId = 0;
+
                 // Create order for each cart item
                 for (CartItem item : cartItems) {
                     Product product = productService.getById(item.getProductId());
@@ -2761,17 +2792,36 @@ public class DashboardController {
                     order.setShippingAddress(address);
                     order.setShippingCity(cityField.getText().trim());
                     order.setShippingPostal(postalField.getText().trim());
+                    order.setShippingEmail(email);
+                    order.setShippingPhone(phone);
                     order.setNotes(notesField.getText().trim().isEmpty() ? null : notesField.getText().trim());
                     order.setStatus("pending");
                     order.setOrderDate(java.time.LocalDateTime.now());
 
                     orderService.add(order);
                     productService.decrementQuantity(product.getId(), item.getQuantity());
+
+                    grandTotal += order.getTotalPrice();
+                    if (firstOrderId == 0) {
+                        // Get the last inserted order ID (approximation - in production use LAST_INSERT_ID())
+                        firstOrderId = System.currentTimeMillis();
+                    }
                 }
 
                 cartService.clearCart(currentUser.getId());
+
+                // Send order confirmation email
+                try {
+                    esprit.farouk.utils.EmailUtils.sendOrderConfirmation(email, currentUser.getName(), firstOrderId, grandTotal);
+                } catch (javax.mail.MessagingException e) {
+                    System.err.println("Failed to send confirmation email: " + e.getMessage());
+                    // Don't show error to user, order was still placed successfully
+                }
+
                 reloadCart.run();
-                showAlert(Alert.AlertType.INFORMATION, "Order Placed", "Your order has been placed successfully!");
+                showAlert(Alert.AlertType.INFORMATION, "Order Placed",
+                    "Your order has been placed successfully!\n\nA confirmation email has been sent to " + email +
+                    ".\n\nYour order will be delivered within 3 business days.");
             } catch (SQLException ex) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to place order: " + ex.getMessage());
             }

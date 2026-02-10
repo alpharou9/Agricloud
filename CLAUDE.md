@@ -19,6 +19,7 @@
 - [x] ValidationUtils utility class
 - [x] EmailUtils utility class (Gmail SMTP SSL on port 465)
 - [x] CSS styling for all views (login, dashboard, tables, stat cards, search/filter)
+- [x] Guest role with limited permissions (home, shop, cart, orders, blog view only, events view/register, no profile, no commenting)
 
 ### To Do
 - [ ] Profile picture upload
@@ -148,11 +149,56 @@
 - Content swapped via `contentArea.getChildren().clear()` + add new layout
 - Tables: `FilteredList` + `SortedList` pattern for live search/filter
 - Forms: `Dialog<ButtonType>` with `GridPane`, validation loop (`while(true)` re-show on error)
-- Role-based sidebar: three branches (admin, farmer, customer)
+- Role-based sidebar: four branches (admin, farmer, customer, guest)
 
 ### FXML
 - XML declaration `<?xml version="1.0"...?>` MUST be on line 1 (no empty lines before)
 - `onAction="#methodName"` for button clicks and Enter key on text fields
+
+---
+
+## Role Permissions
+
+### Admin
+- Full access to all features
+- Users/Roles CRUD
+- Farms approval/rejection
+- Products approval/rejection
+- Posts management
+- Events management
+- Statistics and reporting
+
+### Farmer
+- Profile editing
+- My Farms (CRUD + Fields management)
+- My Products (CRUD)
+- My Orders (seller view)
+- My Posts (CRUD + Publish)
+- Blog (view + comment)
+- Events (view + register)
+- Shopping Cart
+- Shop
+
+### Customer
+- Profile editing
+- Shop (browse products)
+- Shopping Cart
+- My Orders (buyer view)
+- Blog (view + comment)
+- My Posts (CRUD + Publish)
+- Events (view + register)
+
+### Guest (Limited Access)
+- ✅ Home
+- ✅ Shop (browse products)
+- ✅ Shopping Cart
+- ✅ My Orders (review orders)
+- ✅ Blog (view only, **no commenting**)
+- ✅ Events (view + register)
+- ❌ **No Profile** (no profile editing access)
+- ❌ **No Commenting** (can view blog posts but cannot add comments)
+- ❌ **No My Posts** (cannot create blog posts)
+- **⚠️ Session Behavior:** Guest sessions are temporary. When guest logs off, session is lost. When relogging as guest, previous profile/data is not retained. (This is a placeholder implementation to be improved later)
 
 ---
 
