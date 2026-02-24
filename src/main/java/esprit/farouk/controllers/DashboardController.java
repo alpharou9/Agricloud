@@ -23,6 +23,7 @@ import esprit.farouk.services.ProductService;
 import esprit.farouk.services.RoleService;
 import esprit.farouk.services.UserService;
 import esprit.farouk.utils.EmailUtils;
+import esprit.farouk.utils.SMSUtils;
 import esprit.farouk.utils.TranslationUtils;
 import esprit.farouk.utils.ValidationUtils;
 import javafx.application.Platform;
@@ -2295,11 +2296,32 @@ public class DashboardController {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
+            String newStatus = statusCombo.getValue();
             try {
-                orderService.updateStatus(order.getId(), statusCombo.getValue());
+                orderService.updateStatus(order.getId(), newStatus);
             } catch (SQLException e) {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to update order: " + e.getMessage());
+                return;
             }
+            // Send SMS notification to customer in background
+            new Thread(() -> {
+                try {
+                    String productName = "Order item";
+                    try {
+                        esprit.farouk.models.Product p = productService.getById(order.getProductId());
+                        if (p != null) productName = p.getName();
+                    } catch (Exception ignored) {}
+                    SMSUtils.sendOrderStatusUpdate(
+                            order.getShippingPhone(),
+                            order.getId(),
+                            newStatus,
+                            productName,
+                            order.getTotalPrice()
+                    );
+                } catch (Exception ex) {
+                    System.err.println("SMS notification failed: " + ex.getMessage());
+                }
+            }).start();
         }
     }
 
