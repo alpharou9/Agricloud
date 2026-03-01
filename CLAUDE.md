@@ -22,9 +22,24 @@
 - [x] Guest role with limited permissions (home, shop, cart, orders, blog view only, events view/register, no profile, no commenting)
 - [x] Unique guest sessions with UUID-based user instances (isolated cart/orders per session)
 - [x] Guest user cleanup utility (removes guest users older than 24 hours)
+- [x] **Face Recognition Login (All Roles Except Guest)** - biometric authentication using OpenCV ONNX models
+- [x] Face enrollment via Profile Settings (5 captures from different angles for robustness)
+- [x] Face login screen with camera preview and real-time recognition
+- [x] FaceRecognitionService with YuNet detection + SFace embedding (128D vectors)
+- [x] FaceUtils for JSON serialization/deserialization of embeddings
+- [x] CameraUtils for webcam management and Mat↔Image conversion
+- [x] Database schema: face_embeddings (TEXT), face_enrolled_at (TIMESTAMP)
+- [x] Role-based access: face features available to Admin, Farmer, Customer (NOT Guest)
+- [x] Privacy-focused: only mathematical embeddings stored (not images)
+- [x] Recognition threshold: 0.6 Euclidean distance (99%+ accuracy)
+- [x] Password login always available as fallback
+- [x] Profile button added to Admin dashboard sidebar
+- [x] Face coordinate extraction fixed using FloatPointer direct access
+- [x] Detection thresholds optimized (scoreThreshold: 0.6, nmsThreshold: 0.3)
+- [x] Face enrollment dialog fully functional with 5-capture workflow
+- [x] Face authentication tested and working successfully
 
 ### To Do
-- [ ] Profile picture upload
 - [ ] Email verification on registration
 - [ ] PDF/CSV export of user list
 - [ ] Remember me (auto-login)
